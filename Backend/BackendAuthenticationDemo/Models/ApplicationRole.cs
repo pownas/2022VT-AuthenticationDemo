@@ -10,5 +10,6 @@ public class ApplicationRole : IdentityRole<Guid>
     [NotMapped]
     public virtual ICollection<ApplicationUserRole>? UserRoles { get; set; }
 
+    [NotMapped]
     public virtual ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
 }

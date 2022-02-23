@@ -21,9 +21,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     {
         base.OnModelCreating(modelBuilder);
 
+        //Passwords for users created below
         var hasher = new PasswordHasher<ApplicationUser>();
         var defaultPassword = "DemoPassword1!";
-
 
         //Create Roles
         ApplicationRole roleSystemAdmin = new()

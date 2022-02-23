@@ -1,4 +1,5 @@
 ﻿using BackendAuthenticationDemo.Data;
+using BackendAuthenticationDemo.Dtos;
 using BackendAuthenticationDemo.Interfaces;
 using BackendAuthenticationDemo.Models;
 using Microsoft.AspNetCore.Identity;
@@ -14,17 +15,17 @@ public class ApplicationUserRepository : RepositoryBase<ApplicationUser>, IAppli
         _dbContext = dbContext;
     }
 
-    public async Task<ApplicationUser> Login(string username, string password)
+    public async Task<ApplicationUser> Login(LoginDto dto)
     {
-        var user = await _dbContext.AspNetUsers.FirstOrDefaultAsync(u => u.UserName.Equals(username));
+        var user = await _dbContext.AspNetUsers.FirstOrDefaultAsync(u => u.UserName.Equals(dto.UserName));
         if (user == null)
         {
             return new ApplicationUser() { UserName = "User not found" };
         }
         var hasher = new PasswordHasher<ApplicationUser>();
 
-        var passwordHash = hasher.HashPassword(user, password);
-        PasswordVerificationResult passwordCheck = hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        var passwordHash = hasher.HashPassword(user, dto.Password);
+        PasswordVerificationResult passwordCheck = hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
         if (passwordCheck.HasFlag(PasswordVerificationResult.Success))
             return user;
@@ -40,10 +41,15 @@ public class ApplicationUserRepository : RepositoryBase<ApplicationUser>, IAppli
     public async Task<ApplicationUser> GetAllUserInfoById(Guid userId)
     {
         var user = await Entities.FindAsync(userId);
-
         if (user != null)
         {
             user.UserRoles = await _dbContext.AspNetUserRoles.Where(u => u.UserId == user.Id).ToListAsync();
+            foreach (var userRole in user.UserRoles)
+            {
+                var role = await _dbContext.Roles.FirstOrDefaultAsync(r => r.Id == userRole.RoleId);
+                if (role != null)
+                    user.Roles.Add(role);
+            }
         }
 
         return user;

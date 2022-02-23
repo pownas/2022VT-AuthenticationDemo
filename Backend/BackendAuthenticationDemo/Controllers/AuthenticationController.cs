@@ -14,8 +14,6 @@ namespace BackendAuthenticationDemo.Controllers;
 [ApiController, Route("api/[controller]")]
 public class AuthenticationController : ControllerBase
 {
-    //private readonly HttpContext _httpContext;
-
     private readonly IUnitOfWork _uow;
     private readonly IConfiguration _config;
     private readonly string secureSystemKey;
@@ -24,7 +22,6 @@ public class AuthenticationController : ControllerBase
     {
         _uow = uow;
         _config = configuration;
-        //_httpContext = httpContext;
 
         secureSystemKey = _config.GetSection("AppSettings:SystemKey").Value;
     }
@@ -32,20 +29,21 @@ public class AuthenticationController : ControllerBase
 
 
     [HttpPost, Route("Login")]
-    public async Task<ActionResult<string>> LoginAsync(LoginDto loginDto)
+    public async Task<ActionResult<string>> LoginAsync(LoginDto dto)
     {
-        var user = await _uow.ApplicationUsers.Login(loginDto.UserName, loginDto.Password);
-        
-        if (user.UserName == "User not found")
-            return NotFound(user.UserName);
-        if (user.UserName == "Wrong password")
-            return BadRequest(user.UserName);
-        if (user.UserName == null)
-            return NoContent();
+        if (ModelState.IsValid)
+        {
+            var user = await _uow.ApplicationUsers.Login(dto);
+            if (user.UserName == "User not found")
+                return NotFound(user.UserName);
+            if (user.UserName == "Wrong password")
+                return BadRequest(user.UserName);
 
-        var jwtToken = await CreateApiToken(user);
+            var jwtToken = await CreateApiToken(user);
+            return Ok(jwtToken);
+        }
 
-        return Ok(jwtToken);
+        return BadRequest(dto);
     }
 
 

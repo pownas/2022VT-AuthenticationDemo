@@ -24,7 +24,12 @@ public class UserController : ControllerBase
     [Authorize(Roles = $"SystemAdmin, Administrator")]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
     {
-        var listOfUsers = await _uow.ApplicationUsers.GetAllAsync(i => i.Roles);
+        var listOfUsers = await _uow.ApplicationUsers.GetAllAsync();
+
+        foreach (var user in listOfUsers)
+        {
+            user.Roles = await _uow.ApplicationRoles.GetRolesForUser(user.Id);
+        }
 
         var userDtosToReturn = from u in listOfUsers
                                select new UserDto()
@@ -91,10 +96,10 @@ public class UserController : ControllerBase
     public static UserDto MapModelToDto(ApplicationUser model)
     {
         List<string> userRoles = new List<string>();
-        foreach (var role in model.UserRoles)
+        foreach (var role in model.Roles)
         {
-            if (role.Role != null)
-                userRoles.Add(role.Role.Name);
+            if (role != null)
+                userRoles.Add(role.Name);
         }
 
         return new UserDto()
