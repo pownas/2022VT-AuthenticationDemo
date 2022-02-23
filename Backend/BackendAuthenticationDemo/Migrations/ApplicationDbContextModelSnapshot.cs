@@ -22,21 +22,6 @@ namespace BackendAuthenticationDemo.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ApplicationRoleApplicationUser", b =>
-                {
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("RolesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("ApplicationRoleApplicationUser");
-                });
-
             modelBuilder.Entity("BackendAuthenticationDemo.Models.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
@@ -172,7 +157,7 @@ namespace BackendAuthenticationDemo.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SYSTEM@MAIL.COM",
                             NormalizedUserName = "SYSTEM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELArbq929uR8QDpn1xVYqptD18G2Ex5zr0R+z2I7ImCImwSc9KBiVATcOriOg8EKyw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPm2t8l6amhoxWJy4/1N9ULQ6KmdNwb8Is7QXJlPHB2BXPbGDkBHFGf6BijEPoy1kg==",
                             PhoneNumberConfirmed = false,
                             Surname = "Root",
                             TwoFactorEnabled = false,
@@ -189,7 +174,7 @@ namespace BackendAuthenticationDemo.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@MAIL.COM",
                             NormalizedUserName = "USER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDcffBy/FrdjT5eHdRKyGhyX9txN7xFgMqcih3YC6jJZp7psfYlzn4daA+u0eQv2LA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN1GU4ZYp1Ww7LooUlF75bw92Cdmk1JEmV7JVppG2IPVdqLQ6pVoR/HDhmbOn/mTTg==",
                             PhoneNumberConfirmed = false,
                             Surname = "Carlsson",
                             TwoFactorEnabled = false,
@@ -206,7 +191,7 @@ namespace BackendAuthenticationDemo.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@MAIL.COM",
                             NormalizedUserName = "USER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGCMCkZJyDlG12xxdxakKUUx419+gOcv7ZGEfobge9jeGY4JsRujhELDtoAIVqrAlA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGieV7LbGIEPwN78s+0PWvbDCistpF0gQ1DT5XPEHWZWEAlmmmi2mJO3PiAWFXfQ7g==",
                             PhoneNumberConfirmed = false,
                             Surname = "Philipsson",
                             TwoFactorEnabled = false,
@@ -337,29 +322,14 @@ namespace BackendAuthenticationDemo.Migrations
                         {
                             UserId = new Guid("65476588-351e-4b4a-aa3a-b10ab48cdea0"),
                             RoleId = new Guid("78945632-24f7-5555-8888-123456075555"),
-                            DateRoleAdded = new DateTime(2022, 2, 23, 17, 48, 6, 568, DateTimeKind.Local).AddTicks(5574)
+                            DateRoleAdded = new DateTime(2022, 2, 23, 19, 16, 44, 84, DateTimeKind.Local).AddTicks(8778)
                         },
                         new
                         {
                             UserId = new Guid("12345678-351e-4b4a-aa3a-123456789012"),
                             RoleId = new Guid("76525372-24f7-5555-8888-876543214321"),
-                            DateRoleAdded = new DateTime(2022, 2, 23, 17, 48, 6, 568, DateTimeKind.Local).AddTicks(5624)
+                            DateRoleAdded = new DateTime(2022, 2, 23, 19, 16, 44, 84, DateTimeKind.Local).AddTicks(8824)
                         });
-                });
-
-            modelBuilder.Entity("ApplicationRoleApplicationUser", b =>
-                {
-                    b.HasOne("BackendAuthenticationDemo.Models.ApplicationRole", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BackendAuthenticationDemo.Models.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

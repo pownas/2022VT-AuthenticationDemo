@@ -73,30 +73,6 @@ namespace BackendAuthenticationDemo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ApplicationRoleApplicationUser",
-                columns: table => new
-                {
-                    RolesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationRoleApplicationUser", x => new { x.RolesId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_ApplicationRoleApplicationUser_AspNetRoles_RolesId",
-                        column: x => x.RolesId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ApplicationRoleApplicationUser_AspNetUsers_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -197,25 +173,20 @@ namespace BackendAuthenticationDemo.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "GivenName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("12345678-351e-4b4a-aa3a-123456789012"), 0, "bee74495-eeee-dddd-aaaa-aaaabbbbcccc", "user@mail.com", true, "Clara", false, null, "USER@MAIL.COM", "USER1", "AQAAAAEAACcQAAAAEDcffBy/FrdjT5eHdRKyGhyX9txN7xFgMqcih3YC6jJZp7psfYlzn4daA+u0eQv2LA==", null, false, null, "Carlsson", false, "User1" },
-                    { new Guid("65476588-351e-4b4a-aa3a-b10ab48cdea0"), 0, "bee74495-9134-4dbe-b91d-eb0ce4f85bb2", "system@mail.com", true, "System", false, null, "SYSTEM@MAIL.COM", "SYSTEM", "AQAAAAEAACcQAAAAELArbq929uR8QDpn1xVYqptD18G2Ex5zr0R+z2I7ImCImwSc9KBiVATcOriOg8EKyw==", null, false, null, "Root", false, "system" },
-                    { new Guid("98356475-351e-0000-aa3a-122233335643"), 0, "11112222-eeee-aadw-aaaa-ffffaaaaeeee", "user2@mail.com", true, "Philip", false, null, "USER2@MAIL.COM", "USER2", "AQAAAAEAACcQAAAAEGCMCkZJyDlG12xxdxakKUUx419+gOcv7ZGEfobge9jeGY4JsRujhELDtoAIVqrAlA==", null, false, null, "Philipsson", false, "User2" }
+                    { new Guid("12345678-351e-4b4a-aa3a-123456789012"), 0, "bee74495-eeee-dddd-aaaa-aaaabbbbcccc", "user@mail.com", true, "Clara", false, null, "USER@MAIL.COM", "USER1", "AQAAAAEAACcQAAAAEN1GU4ZYp1Ww7LooUlF75bw92Cdmk1JEmV7JVppG2IPVdqLQ6pVoR/HDhmbOn/mTTg==", null, false, null, "Carlsson", false, "User1" },
+                    { new Guid("65476588-351e-4b4a-aa3a-b10ab48cdea0"), 0, "bee74495-9134-4dbe-b91d-eb0ce4f85bb2", "system@mail.com", true, "System", false, null, "SYSTEM@MAIL.COM", "SYSTEM", "AQAAAAEAACcQAAAAEPm2t8l6amhoxWJy4/1N9ULQ6KmdNwb8Is7QXJlPHB2BXPbGDkBHFGf6BijEPoy1kg==", null, false, null, "Root", false, "system" },
+                    { new Guid("98356475-351e-0000-aa3a-122233335643"), 0, "11112222-eeee-aadw-aaaa-ffffaaaaeeee", "user2@mail.com", true, "Philip", false, null, "USER2@MAIL.COM", "USER2", "AQAAAAEAACcQAAAAEGieV7LbGIEPwN78s+0PWvbDCistpF0gQ1DT5XPEHWZWEAlmmmi2mJO3PiAWFXfQ7g==", null, false, null, "Philipsson", false, "User2" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId", "DateRoleAdded", "Discriminator" },
-                values: new object[] { new Guid("76525372-24f7-5555-8888-876543214321"), new Guid("12345678-351e-4b4a-aa3a-123456789012"), new DateTime(2022, 2, 23, 17, 48, 6, 568, DateTimeKind.Local).AddTicks(5624), "ApplicationUserRole" });
+                values: new object[] { new Guid("76525372-24f7-5555-8888-876543214321"), new Guid("12345678-351e-4b4a-aa3a-123456789012"), new DateTime(2022, 2, 23, 19, 16, 44, 84, DateTimeKind.Local).AddTicks(8824), "ApplicationUserRole" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId", "DateRoleAdded", "Discriminator" },
-                values: new object[] { new Guid("78945632-24f7-5555-8888-123456075555"), new Guid("65476588-351e-4b4a-aa3a-b10ab48cdea0"), new DateTime(2022, 2, 23, 17, 48, 6, 568, DateTimeKind.Local).AddTicks(5574), "ApplicationUserRole" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApplicationRoleApplicationUser_UsersId",
-                table: "ApplicationRoleApplicationUser",
-                column: "UsersId");
+                values: new object[] { new Guid("78945632-24f7-5555-8888-123456075555"), new Guid("65476588-351e-4b4a-aa3a-b10ab48cdea0"), new DateTime(2022, 2, 23, 19, 16, 44, 84, DateTimeKind.Local).AddTicks(8778), "ApplicationUserRole" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -259,9 +230,6 @@ namespace BackendAuthenticationDemo.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ApplicationRoleApplicationUser");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
