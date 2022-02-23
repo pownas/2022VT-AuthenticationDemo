@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace BackendAuthenticationDemo.Controllers
+namespace BackendAuthenticationDemo.Controllers;
+
+[ApiController, Route("api/[controller]")]
+public class AuthenticationController : ControllerBase
 {
-    public class AuthenticationController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+
+
 }

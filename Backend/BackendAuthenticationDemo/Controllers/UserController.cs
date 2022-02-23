@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace BackendAuthenticationDemo.Controllers
+namespace BackendAuthenticationDemo.Controllers;
+
+[ApiController, Route("api/[controller]")]
+public class UserController : ControllerBase
 {
-    public class UserController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+
 }
