@@ -7,7 +7,7 @@ import { Form, Col } from "react-bootstrap"
 import { Button } from "../../styles/Button.styled"
 import { SpacingSmall } from "../../styles/Spacing.styled"
 import { Center } from "../../styles/Align.styled"
-
+import Seo from "../../components/Seo"
 import useValidate from "../../hooks/useValidate"
 import Layout from "../../components/Layout"
 import ClipLoader from "react-spinners/ClipLoader"
@@ -64,6 +64,7 @@ const Login = () => {
 
   return (
     <Layout>
+      {/* <Seo title="Login" /> */}
       <Center>
         <h1 style={{ fontSize: "80px" }}>Login</h1>
         <AuthenticationCard>

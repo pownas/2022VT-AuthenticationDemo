@@ -1,18 +1,15 @@
-import React, { useContext, useState } from "react"
+import React from "react"
 import { useAuthContext } from "../State/Context/AuthContextProvider"
 import {
   HeaderStyled,
   Nav,
   Logo,
-  NavMenu,
   NavItem,
   LogoLink,
 } from "../styles/Header.styled"
 import { Button } from "../styles/Button.styled"
-import { navigate, Link } from "gatsby"
+import { Link } from "gatsby"
 import { Container } from "../styles/Container.styled"
-import { ThemeContext } from "../State/Context/ThemeContextProvider"
-import { FaMoon, FaSun } from "react-icons/fa"
 
 interface Props {
   companyName: String
