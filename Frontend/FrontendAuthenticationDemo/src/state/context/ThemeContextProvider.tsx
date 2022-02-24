@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react"
 import { ThemeProvider } from "styled-components"
-import useLocalStorage, { STORED_VALUES } from "../../Hooks/useLocalStorage"
+import useLocalStorage, { STORED_VALUES } from "../../hooks/useLocalStorage"
 
 interface Props {
   children: JSX.Element

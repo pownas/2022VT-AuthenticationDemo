@@ -1,7 +1,7 @@
 import React from "react"
-import { Container } from "../Styles/Container.styled"
+import { Container } from "../styles/Container.styled"
 import { Flex } from "../styles/Flex.styled"
-import { StyledFooter } from "../Styles/Footer.styled"
+import { StyledFooter } from "../styles/Footer.styled"
 
 function Footer() {
   return (
