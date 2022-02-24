@@ -23,11 +23,11 @@ const responsive = {
 }
 const light = {
   colors: {
-    header: "#ffffff",
-    button: "#e8fcfc",
-    body: "#ffffff",
+    header: "#1C3738",
+    button: "#8BAAAD",
+    body: "#000F08",
     footer: "#f7ffff",
-    text: "#000",
+    text: "#F4FFF8",
     dropdown: "#adadad",
     authCard: "#f7ffff",
     pagination: "#e8fcfc",
