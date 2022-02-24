@@ -11,7 +11,7 @@ namespace BackendAuthenticationDemo.Controllers;
 [Authorize]
 public class UserController : ControllerBase
 {
-    private IUnitOfWork _uow { get; set; }
+    private readonly IUnitOfWork _uow;
 
     public UserController(IUnitOfWork uow)
     {
@@ -27,9 +27,7 @@ public class UserController : ControllerBase
         var listOfUsers = await _uow.ApplicationUsers.GetAllAsync();
 
         foreach (var user in listOfUsers)
-        {
             user.Roles = await _uow.ApplicationRoles.GetRolesForUser(user.Id);
-        }
 
         var userDtosToReturn = from u in listOfUsers
                                select new UserDto()
@@ -95,12 +93,10 @@ public class UserController : ControllerBase
 
     public static UserDto MapModelToDto(ApplicationUser model)
     {
-        List<string> userRoles = new List<string>();
+        var userRoles = new List<string>();
         foreach (var role in model.Roles)
-        {
             if (role != null)
                 userRoles.Add(role.Name);
-        }
 
         return new UserDto()
         {

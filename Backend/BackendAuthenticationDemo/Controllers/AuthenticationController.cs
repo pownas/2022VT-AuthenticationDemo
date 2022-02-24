@@ -57,12 +57,9 @@ public class AuthenticationController : ControllerBase
             var userId = HttpContext.GetUserId();
 
             if (userId == Guid.Empty)
-            {
                 return NotFound();
-            }
 
             var user = await _uow.ApplicationUsers.GetAllUserInfoById(userId);
-
             var roles = new List<string>();
 
             if (user.Roles != null)

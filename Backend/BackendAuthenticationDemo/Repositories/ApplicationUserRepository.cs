@@ -19,11 +19,9 @@ public class ApplicationUserRepository : RepositoryBase<ApplicationUser>, IAppli
     {
         var user = await _dbContext.AspNetUsers.FirstOrDefaultAsync(u => u.UserName.Equals(dto.UserName));
         if (user == null)
-        {
             return new ApplicationUser() { UserName = "User not found" };
-        }
-        var hasher = new PasswordHasher<ApplicationUser>();
 
+        var hasher = new PasswordHasher<ApplicationUser>();
         var passwordHash = hasher.HashPassword(user, dto.Password);
         PasswordVerificationResult passwordCheck = hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
@@ -31,9 +29,7 @@ public class ApplicationUserRepository : RepositoryBase<ApplicationUser>, IAppli
             return user;
 
         if (passwordCheck.HasFlag(PasswordVerificationResult.SuccessRehashNeeded)) // TODO: fix so that RehashNeeded go to User password change...
-        {
             return user; //Should return user and "Password change needed", to  get a new Hash (if migrating from old system). 
-        }
 
         return new ApplicationUser() { UserName = "Wrong password" };
     }

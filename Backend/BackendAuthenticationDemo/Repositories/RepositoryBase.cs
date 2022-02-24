@@ -33,9 +33,7 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where T
     {
         var entities = Entities.AsQueryable();
         foreach (var include in includeEntities)
-        {
             entities = entities.Include(include);
-        }
 
         return await entities.ToListAsync();
     }

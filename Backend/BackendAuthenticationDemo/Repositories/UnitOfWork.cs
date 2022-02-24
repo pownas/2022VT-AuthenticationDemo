@@ -3,7 +3,7 @@ using BackendAuthenticationDemo.Interfaces;
 
 namespace BackendAuthenticationDemo.Repositories;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork : IUnitOfWork, IDisposable
 {
     //Fields
     private readonly ApplicationDbContext _context;
@@ -26,7 +26,7 @@ public class UnitOfWork : IUnitOfWork
         return await _context.SaveChangesAsync();
     }
 
-    public void Dispose() 
+    public void Dispose()
     {
         _context.Dispose();
     }

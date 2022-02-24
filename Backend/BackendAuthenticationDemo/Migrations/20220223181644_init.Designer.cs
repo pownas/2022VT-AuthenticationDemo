@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendAuthenticationDemo.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220223181644_init")]
-    partial class init
+    [Migration("20220223181644_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
