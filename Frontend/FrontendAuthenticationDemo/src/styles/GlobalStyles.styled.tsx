@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
 
   body {
     background-image: url('../images/safe.jpg')!important;; 
-    background:${({ theme }) => theme.colors.body};
+    background-color: #1C3738 !important;
     color: hsl(192, 100%, 9%);
     font-family: 'Poppins', sans-serif;
     font-size: 1.15em;
@@ -30,13 +30,9 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
   img {
     max-width: 100%;
   }
-  h1 {
-    color: hsl(192, 100%, 9%);
+  h1, h2, h3, h4 {
+    color:"#F4FFF8";
+    text-align: center;
   }
-  h3 {
-    color: hsl(192, 100%, 9%);
-  }
-  h4 {
-    color: hsl(192, 100%, 9%);
-  }
+
 `
