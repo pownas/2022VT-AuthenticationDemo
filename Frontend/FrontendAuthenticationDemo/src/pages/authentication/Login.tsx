@@ -65,7 +65,7 @@ const Login = () => {
   return (
     <Layout>
       <Center>
-        <h1 style={{ fontSize: "80px" }}>Demo</h1>
+        <h1 style={{ fontSize: "80px" }}>Login</h1>
         <AuthenticationCard>
           <Form onSubmit={Login} className="w-100">
             <h3>Login</h3>

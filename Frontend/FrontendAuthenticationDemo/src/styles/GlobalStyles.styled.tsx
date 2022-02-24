@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
   }
 
   body {
-    background-image: url('../images/safe.jpg'); 
+    background-image: url('../images/safe.jpg')!important;; 
     background:${({ theme }) => theme.colors.body};
     color: hsl(192, 100%, 9%);
     font-family: 'Poppins', sans-serif;
@@ -29,5 +29,14 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
 
   img {
     max-width: 100%;
+  }
+  h1 {
+    color: hsl(192, 100%, 9%);
+  }
+  h3 {
+    color: hsl(192, 100%, 9%);
+  }
+  h4 {
+    color: hsl(192, 100%, 9%);
   }
 `
