@@ -16,7 +16,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <Seo title="Home" />
-      <h2></h2>
+      <h2>You are not logged in.</h2>
     </Layout>
   )
 }
