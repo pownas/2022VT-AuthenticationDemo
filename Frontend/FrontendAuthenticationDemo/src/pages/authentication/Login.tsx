@@ -16,6 +16,8 @@ const Login = () => {
   const { login } = useAuthContext()
   const [loaded, setLoaded] = useState(true)
 
+  //#region FormValidation
+
   const {
     value: usernameVal,
     isValid: usernameIsValid,
@@ -40,9 +42,10 @@ const Login = () => {
     formIsValid = true
   }
 
+  //#endregion
+
   const Login = (event: any) => {
     event.preventDefault()
-    setLoaded(false)
 
     const loginDto = {
       username: usernameVal,
@@ -52,8 +55,8 @@ const Login = () => {
     LoginRequest(loginDto)
       .then(jwtToken => { login(jwtToken) })
       .catch(error => console.log(error))
-      .finally(() => { setLoaded(true) })
 
+    //Validation on Username and Password
     resetUsernameInput();
     resetPasswordInput();
   }
