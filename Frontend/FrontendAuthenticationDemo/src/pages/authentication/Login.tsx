@@ -64,72 +64,31 @@ const Login = () => {
 
   return (
     <Layout>
-      {/* <Seo title="Login" /> */}
       <Center>
-        <h1 style={{ fontSize: "80px" }}>Login</h1>
         <AuthenticationCard>
-          <Form onSubmit={Login} className="w-100">
+          <Form onSubmit={Login}>
             <h3>Login</h3>
-            <Form.Group
-              className="mb-3 w-100"
-              controlId="exampleForm.ControlInput1"
-            >
+            <Form.Group>
               <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="username"
-                placeholder="USERNAME"
-                onChange={event => {
-                  usernameChangeHandler(event)
-                }}
-                onBlur={usernameBlurHandler}
-                value={usernameVal}
+              <Form.Control type="username" 
+                            placeholder="USERNAME" 
+                            onChange={event => { usernameChangeHandler(event) }} 
+                            value={usernameVal} 
               />
-              {usernameInputHasError && (
-                <p className="text-danger">Email is not formatted correctly</p>
-              )}
+              {usernameInputHasError && ( <p className="text-danger">Email is not formatted correctly</p> )}
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group>
               <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                onChange={event => {
-                  passwordChangeHandler(event)
-                }}
-                onBlur={passwordBlurHandler}
-                value={passwordVal}
+              <Form.Control type="password" 
+                            placeholder="PASSWORD"
+                            onChange={event => { passwordChangeHandler(event) }} 
+                            value={passwordVal}
               />
-              {passwordInputHasError && (
-                <p className="text-danger">
-                  Password is not formatted correctly
-                </p>
-              )}
+              {passwordInputHasError && ( <p className="text-danger">Password is not formatted correctly</p>)}
             </Form.Group>
-            <Button textColor="#262626" type="submit">
-              {loaded ? (
-                <>Login</>
-              ) : (
-                <>
-                  <Col>Login</Col>
-                </>
-              )}
-            </Button>{" "}
-            {!loaded ? (
-              <span style={{ marginLeft: "2rem" }}>
-                <ClipLoader loading={true} size={15} />
-              </span>
-            ) : (
-              <></>
-            )}
+            <Button type="submit">Login</Button>
           </Form>
         </AuthenticationCard>
-        <SpacingSmall>
-          <Button
-            textColor="#262626"
-            onClick={() => navigate("/authentication/Register")}
-          >
-            Register
-          </Button>
-        </SpacingSmall>
       </Center>
     </Layout>
   )
