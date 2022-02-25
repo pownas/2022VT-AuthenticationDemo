@@ -14,7 +14,6 @@ import ClipLoader from "react-spinners/ClipLoader"
 
 const Login = () => {
   const { login } = useAuthContext()
-  const [loaded, setLoaded] = useState(true)
 
   //#region FormValidation
 
@@ -56,7 +55,7 @@ const Login = () => {
       .then(jwtToken => { login(jwtToken) })
       .catch(error => console.log(error))
 
-    //Validation on Username and Password
+    //FormValidation on Username and Password
     resetUsernameInput();
     resetPasswordInput();
   }
