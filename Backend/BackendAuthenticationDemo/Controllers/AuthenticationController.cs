@@ -33,7 +33,7 @@ public class AuthenticationController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var user = await _uow.ApplicationUsers.Login(dto);
+            ApplicationUser user = await _uow.ApplicationUsers.Login(dto);
             if (user.UserName == "User not found")
                 return NotFound(user.UserName);
             if (user.UserName == "Wrong password")
