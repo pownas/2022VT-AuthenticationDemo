@@ -22,7 +22,7 @@ const Login = () => {
     hasError: usernameInputHasError,
     valueChangeHandler: usernameChangeHandler,
     valueBlurHandler: usernameBlurHandler,
-    reset: resetUsernamenput,
+    reset: resetUsernameInput,
   } = useValidate(value => true)
 
   const {
@@ -31,7 +31,7 @@ const Login = () => {
     hasError: passwordInputHasError,
     valueChangeHandler: passwordChangeHandler,
     valueBlurHandler: passwordBlurHandler,
-    reset: resetPasswordnput,
+    reset: resetPasswordInput,
   } = useValidate(value => true)
 
   let formIsValid = false
@@ -44,22 +44,18 @@ const Login = () => {
     event.preventDefault()
     setLoaded(false)
 
-    const user = {
+    const loginDto = {
       username: usernameVal,
       password: passwordVal,
     }
 
-    LoginRequest(user)
-      .then(token => {
-        login(token)
-      })
+    LoginRequest(loginDto)
+      .then(jwtToken => { login(jwtToken) })
       .catch(error => console.log(error))
-      .finally(() => {
-        setLoaded(true)
-      })
+      .finally(() => { setLoaded(true) })
 
-    resetUsernamenput()
-    resetPasswordnput()
+    resetUsernameInput();
+    resetPasswordInput();
   }
 
   return (
