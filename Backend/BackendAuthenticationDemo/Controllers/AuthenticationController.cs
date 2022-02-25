@@ -18,7 +18,7 @@ public class AuthenticationController : ControllerBase
     private readonly IConfiguration _config;
     private readonly string secureSystemKey;
 
-    public AuthenticationController(IUnitOfWork uow, IConfiguration configuration)//, HttpContext httpContext)
+    public AuthenticationController(IUnitOfWork uow, IConfiguration configuration)
     {
         _uow = uow;
         _config = configuration;
