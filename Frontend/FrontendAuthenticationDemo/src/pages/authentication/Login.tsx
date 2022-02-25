@@ -1,4 +1,3 @@
-//#region imports
 import React from "react"
 import { useAuthContext } from "../../State/Context/AuthContextProvider"
 import { LoginRequest } from "../../service/Authentication"
@@ -8,7 +7,6 @@ import { Button } from "../../styles/Button.styled"
 import { Center } from "../../styles/Align.styled"
 import useValidate from "../../hooks/useValidate"
 import Layout from "../../components/Layout"
-//#endregion
 
 const Login = () => {
   const { login } = useAuthContext()
