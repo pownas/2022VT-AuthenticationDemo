@@ -47,7 +47,7 @@ public class AuthenticationController : ControllerBase
     }
 
 
-
+    #region GetLoggedInUser()
     [HttpGet, Route("GetLoggedInUser")]
     [Authorize]
     public async Task<ActionResult> GetLoggedInUser()
@@ -83,7 +83,7 @@ public class AuthenticationController : ControllerBase
             return Unauthorized();
         }
     }
-
+    #endregion
 
 
     private async Task<string> CreateApiToken(ApplicationUser user)
