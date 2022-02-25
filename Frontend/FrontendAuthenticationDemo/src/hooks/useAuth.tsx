@@ -16,7 +16,6 @@ export interface JWT {
 function useAuth() {
     const [authState, authDispatch] = useReducer(AuthReducer, initialState);
     const { value, setValue, remove } = useLocalStorage(STORED_VALUES.TOKEN, "");
-    const [ loaded, setLoaded ] = useState(false);
 
     useEffect(() => {
         if (value) {
@@ -24,7 +23,6 @@ function useAuth() {
         } else {
             logout();
         }
-        setLoaded(true);
     }, [])
 
     const login = (responseToken: string) => {
@@ -66,8 +64,7 @@ function useAuth() {
         logout,
         register,
         isLoggedIn,
-        getLoggedInUser,
-        loaded
+        getLoggedInUser
     }
 }
 
