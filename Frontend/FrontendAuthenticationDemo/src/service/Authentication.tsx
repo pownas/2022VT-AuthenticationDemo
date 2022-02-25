@@ -8,8 +8,8 @@ interface ILoginDto {
   password: string
 }
 
-export async function LoginRequest(credentials: ILoginDto) {
-  const request = axios.post(API + "/Authentication/login", credentials)
+export async function LoginRequest(dto: ILoginDto) {
+  const request = axios.post(API + "/Authentication/login", dto)
   return request
     .then(response => response.data)
     .catch(error => Promise.reject(error))
