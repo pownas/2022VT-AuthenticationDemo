@@ -16,14 +16,11 @@ public class AuthenticationController : ControllerBase
 {
     private readonly IUnitOfWork _uow;
     private readonly IConfiguration _config;
-    private readonly string secureSystemKey;
 
     public AuthenticationController(IUnitOfWork uow, IConfiguration configuration)
     {
         _uow = uow;
         _config = configuration;
-
-        secureSystemKey = _config.GetSection("AppSettings:SystemKey").Value;
     }
 
 
@@ -99,6 +96,7 @@ public class AuthenticationController : ControllerBase
             foreach (var role in userRoles)
                 claims.Add(new Claim(ClaimTypes.Role, role.Name));
 
+        var secureSystemKey = _config.GetSection("AppSettings:SystemKey").Value;
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureSystemKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
         var token = new JwtSecurityToken(
