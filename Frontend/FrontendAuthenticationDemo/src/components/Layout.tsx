@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <HeaderStyled>
-        <Header companyName={"Authentication Demo"} />
+        <Header companyName={"Frontend Authentication Demo"} />
       </HeaderStyled>
       <Container>
         <GlobalStyles />
