@@ -5,7 +5,6 @@ import { navigate } from "gatsby";
 import { AuthReducer, initialState, State } from "../State/reducers/AuthReducer";
 
 export interface JWT {
-    Id: string;
     name: string;
     given_name: string;
     roles: string;
