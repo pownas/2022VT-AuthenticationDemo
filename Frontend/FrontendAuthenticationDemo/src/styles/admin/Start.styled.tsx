@@ -29,7 +29,7 @@ export const Card = styled.div`
     font-size: 1rem;
   }
 
-  @media (min-width: ${({ theme }) => theme.responsive.sm}) {
+  @media (min-width: 600px) {
     text-align: center;
     width: 100px;
     height: 300px;

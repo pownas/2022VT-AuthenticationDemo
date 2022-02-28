@@ -48,37 +48,51 @@ const Login = () => {
     }
 
     LoginRequest(loginDto)
-      .then(jwtToken => { login(jwtToken) })
+      .then(jwtToken => {
+        login(jwtToken)
+      })
       .catch(error => console.log(error))
 
     //FormValidation on Username and Password
-    resetUsernameInput();
-    resetPasswordInput();
+    resetUsernameInput()
+    resetPasswordInput()
   }
 
   return (
     <Layout>
       <Center>
         <AuthenticationCard>
-          <Form onSubmit={Login}>
+          <Form onSubmit={Login} className="p-5">
             <h3>Login</h3>
             <Form.Group>
               <Form.Label>Username</Form.Label>
-              <Form.Control type="username" 
-                            placeholder="USERNAME" 
-                            onChange={event => { usernameChangeHandler(event) }} 
-                            value={usernameVal} 
+              <Form.Control
+                type="username"
+                placeholder="USERNAME"
+                onChange={event => {
+                  usernameChangeHandler(event)
+                }}
+                value={usernameVal}
               />
-              {usernameInputHasError && ( <p className="text-danger">Email is not formatted correctly</p> )}
+              {usernameInputHasError && (
+                <p className="text-danger">Email is not formatted correctly</p>
+              )}
             </Form.Group>
             <Form.Group>
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" 
-                            placeholder="PASSWORD"
-                            onChange={event => { passwordChangeHandler(event) }} 
-                            value={passwordVal}
+              <Form.Control
+                type="password"
+                placeholder="PASSWORD"
+                onChange={event => {
+                  passwordChangeHandler(event)
+                }}
+                value={passwordVal}
               />
-              {passwordInputHasError && ( <p className="text-danger">Password is not formatted correctly</p>)}
+              {passwordInputHasError && (
+                <p className="text-danger">
+                  Password is not formatted correctly
+                </p>
+              )}
             </Form.Group>
             <Button type="submit">Login</Button>
           </Form>

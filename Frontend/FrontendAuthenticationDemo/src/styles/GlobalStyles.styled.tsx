@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components"
-import { ThemeType } from "../state/context/ThemeContextProvider"
 
-export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
+export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
   * {
@@ -9,9 +8,8 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
   }
 
   body {
-    background-image: url('../images/safe.jpg')!important;; 
     background-color: #1C3738 !important;
-    color: hsl(192, 100%, 9%);
+    color: #1C3738;
     font-family: 'Poppins', sans-serif;
     font-size: 1.15em;
     margin: 0;
