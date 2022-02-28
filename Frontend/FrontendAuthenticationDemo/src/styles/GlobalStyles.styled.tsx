@@ -9,7 +9,6 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType }>`
   }
 
   body {
-    background-image: url('../images/safe.jpg')!important;; 
     background-color: #1C3738 !important;
     color: hsl(192, 100%, 9%);
     font-family: 'Poppins', sans-serif;
