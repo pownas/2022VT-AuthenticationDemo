@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen(opt =>
     opt.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 #endregion
-
+//Adding Authentication and JwtBearer validation on HTTP Headers
 builder.Services.AddAuthentication(cfg => {
     cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -71,7 +71,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-
+//Adding CORS (Cross-Origin Resource Sharing, info: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 app.UseCors(opt =>
     opt.WithOrigins(new[] {
         "http://localhost:8000", //React Frontend
