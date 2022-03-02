@@ -23,8 +23,6 @@ public class AuthenticationController : ControllerBase
         _config = configuration;
     }
 
-
-
     [HttpPost, Route("Login")]
     public async Task<ActionResult<string>> LoginAsync(LoginDto dto)
     {
@@ -42,7 +40,6 @@ public class AuthenticationController : ControllerBase
 
         return BadRequest(dto);
     }
-
 
     #region GetLoggedInUser()
     [HttpGet, Route("GetLoggedInUser")]
@@ -82,7 +79,6 @@ public class AuthenticationController : ControllerBase
     }
     #endregion
 
-
     private async Task<string> CreateApiToken(ApplicationUser user)
     {
         var claims = new List<Claim>
@@ -96,15 +92,16 @@ public class AuthenticationController : ControllerBase
             foreach (var role in userRoles)
                 claims.Add(new Claim(ClaimTypes.Role, role.Name));
 
-        var secureSystemKey = _config.GetSection("AppSettings:SystemKey").Value;
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureSystemKey));
+        var systemSecretKey = _config.GetSection("AppSettings:SystemSecretKey").Value;
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(systemSecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
         var token = new JwtSecurityToken(
-                issuer: user.Id.ToString(),
-                claims: claims,
-                //expires: DateTime.Now.AddSeconds(15), //If a user token just shall be valid 15 sec
-                expires: DateTime.Now.AddDays(1), //If a user token shall be valid 1 day
-                signingCredentials: credentials);
+            signingCredentials: credentials, //"Header" (security algoritm) and "Signature" (signed with SystemSecretKey)
+            //"Payload" (data) below
+            issuer: user.Id.ToString(), //Issued by user id
+            claims: claims, //List of all user claims, GivenName + Roles
+            expires: DateTime.Now.AddMinutes(15) //If a user token shall be valid 15 minutes
+        );
         var jwtJsonWebToken = new JwtSecurityTokenHandler().WriteToken(token);
 
         return jwtJsonWebToken;
