@@ -51,12 +51,12 @@ builder.Services.AddAuthentication(cfg =>
     cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(opt =>
 {
-    var systemApiKey = builder.Configuration.GetSection("AppSettings:SystemKey").Value;
+    var systemSecretKey = builder.Configuration.GetSection("AppSettings:SystemSecretKey").Value;
 
     opt.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(systemApiKey)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(systemSecretKey)),
         ValidateIssuer = false,
         ValidateAudience = false,
         RequireExpirationTime = false,
