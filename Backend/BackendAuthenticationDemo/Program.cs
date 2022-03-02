@@ -44,13 +44,12 @@ builder.Services.AddSwaggerGen(opt =>
 });
 #endregion
 
-builder.Services.AddAuthentication(cfg => 
-{ 
-    cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
-}).AddJwtBearer(opt =>
-{
+builder.Services.AddAuthentication(cfg => {
+    cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(opt => {
     var systemSecretKey = builder.Configuration.GetSection("AppSettings:SystemSecretKey").Value;
-
     opt.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
