@@ -44,11 +44,9 @@ builder.Services.AddSwaggerGen(opt =>
 });
 #endregion
 
-builder.Services.AddAuthentication(cfg =>
-{
-    cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+builder.Services.AddAuthentication(cfg => 
+{ 
+    cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
 }).AddJwtBearer(opt =>
 {
     var systemSecretKey = builder.Configuration.GetSection("AppSettings:SystemSecretKey").Value;
@@ -73,7 +71,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 
 app.UseCors(opt =>
@@ -87,7 +84,6 @@ app.UseCors(opt =>
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
