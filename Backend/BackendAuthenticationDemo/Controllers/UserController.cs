@@ -18,8 +18,6 @@ public class UserController : ControllerBase
         _uow = uow;
     }
 
-
-
     [HttpGet]
     [Authorize(Roles = $"SystemAdmin, Administrator")]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
@@ -40,8 +38,6 @@ public class UserController : ControllerBase
                                };
         return Ok(userDtosToReturn);
     }
-
-
 
     [HttpPost]
     [Authorize(Roles = $"SystemAdmin")]
@@ -79,8 +75,6 @@ public class UserController : ControllerBase
         }
     }
 
-
-
     [HttpGet, Route("{userId}")]
     public async Task<ActionResult<UserDto>> GetUserInfo(Guid userId)
     {
@@ -88,8 +82,6 @@ public class UserController : ControllerBase
         var dto = MapModelToDto(model);
         return Ok(dto);
     }
-
-
 
     public static UserDto MapModelToDto(ApplicationUser model)
     {
