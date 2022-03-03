@@ -28,12 +28,10 @@ public class ApplicationUserRepository : RepositoryBase<ApplicationUser>, IAppli
         if (passwordCheck.HasFlag(PasswordVerificationResult.Success))
             return user;
 
-        if (passwordCheck.HasFlag(PasswordVerificationResult.SuccessRehashNeeded)) // TODO: fix so that RehashNeeded go to User password change...
-            return user; //Should return user and "Password change needed", to  get a new Hash (if migrating from old system). 
-
         return new ApplicationUser() { UserName = "Wrong password" };
     }
 
+    #region GetAllUserInfoById(Guid userId)
     public async Task<ApplicationUser> GetAllUserInfoById(Guid userId)
     {
         var user = await Entities.FindAsync(userId);
@@ -50,4 +48,5 @@ public class ApplicationUserRepository : RepositoryBase<ApplicationUser>, IAppli
 
         return user;
     }
+    #endregion
 }

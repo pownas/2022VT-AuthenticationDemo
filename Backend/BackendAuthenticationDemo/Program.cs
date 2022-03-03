@@ -12,7 +12,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext");
 
-// Add services to the container.
+#region Add Config for Services: DbContext, Identity, UnitOfWork, Cors, Controllers and Swagger.
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {
     opt.UseSqlServer(connectionString);
@@ -26,6 +26,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddCors();
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
@@ -41,20 +42,18 @@ builder.Services.AddSwaggerGen(opt =>
     });
     opt.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-
-builder.Services.AddAuthentication(cfg =>
-{
+#endregion
+//Adding Authentication and JwtBearer validation on HTTP Headers
+builder.Services.AddAuthentication(cfg => {
     cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(opt =>
-{
-    var systemApiKey = builder.Configuration.GetSection("AppSettings:SystemKey").Value;
-
+}).AddJwtBearer(opt => {
+    var systemSecretKey = builder.Configuration.GetSection("AppSettings:SystemSecretKey").Value;
     opt.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(systemApiKey)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(systemSecretKey)),
         ValidateIssuer = false,
         ValidateAudience = false,
         RequireExpirationTime = false,
@@ -66,15 +65,13 @@ builder.Services.AddAuthentication(cfg =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
+//Adding CORS (Cross-Origin Resource Sharing, info: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 app.UseCors(opt =>
     opt.WithOrigins(new[] {
         "http://localhost:8000", //React Frontend
@@ -86,7 +83,6 @@ app.UseCors(opt =>
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

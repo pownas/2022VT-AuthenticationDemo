@@ -1,20 +1,17 @@
-import React, { useState } from "react"
-import { navigate } from "gatsby"
+import React from "react"
 import { useAuthContext } from "../../State/Context/AuthContextProvider"
 import { LoginRequest } from "../../service/Authentication"
 import { AuthenticationCard } from "../../styles/Forms.styled"
-import { Form, Col } from "react-bootstrap"
+import { Form } from "react-bootstrap"
 import { Button } from "../../styles/Button.styled"
-import { SpacingSmall } from "../../styles/Spacing.styled"
 import { Center } from "../../styles/Align.styled"
-import Seo from "../../components/Seo"
 import useValidate from "../../hooks/useValidate"
 import Layout from "../../components/Layout"
-import ClipLoader from "react-spinners/ClipLoader"
 
 const Login = () => {
   const { login } = useAuthContext()
-  const [loaded, setLoaded] = useState(true)
+
+  //#region FormValidation
 
   const {
     value: usernameVal,
@@ -22,7 +19,7 @@ const Login = () => {
     hasError: usernameInputHasError,
     valueChangeHandler: usernameChangeHandler,
     valueBlurHandler: usernameBlurHandler,
-    reset: resetUsernamenput,
+    reset: resetUsernameInput,
   } = useValidate(value => true)
 
   const {
@@ -31,7 +28,7 @@ const Login = () => {
     hasError: passwordInputHasError,
     valueChangeHandler: passwordChangeHandler,
     valueBlurHandler: passwordBlurHandler,
-    reset: resetPasswordnput,
+    reset: resetPasswordInput,
   } = useValidate(value => true)
 
   let formIsValid = false
@@ -40,40 +37,34 @@ const Login = () => {
     formIsValid = true
   }
 
+  //#endregion
+
   const Login = (event: any) => {
     event.preventDefault()
-    setLoaded(false)
 
-    const user = {
+    const loginDto = {
       username: usernameVal,
       password: passwordVal,
     }
 
-    LoginRequest(user)
-      .then(token => {
-        login(token)
+    LoginRequest(loginDto)
+      .then(jwtToken => {
+        login(jwtToken)
       })
       .catch(error => console.log(error))
-      .finally(() => {
-        setLoaded(true)
-      })
 
-    resetUsernamenput()
-    resetPasswordnput()
+    //FormValidation on Username and Password
+    resetUsernameInput()
+    resetPasswordInput()
   }
 
   return (
     <Layout>
-      {/* <Seo title="Login" /> */}
       <Center>
-        <h1 style={{ fontSize: "80px" }}>Login</h1>
         <AuthenticationCard>
-          <Form onSubmit={Login} className="w-100">
+          <Form onSubmit={Login} className="p-5">
             <h3>Login</h3>
-            <Form.Group
-              className="mb-3 w-100"
-              controlId="exampleForm.ControlInput1"
-            >
+            <Form.Group>
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="username"
@@ -81,21 +72,20 @@ const Login = () => {
                 onChange={event => {
                   usernameChangeHandler(event)
                 }}
-                onBlur={usernameBlurHandler}
                 value={usernameVal}
               />
               {usernameInputHasError && (
                 <p className="text-danger">Email is not formatted correctly</p>
               )}
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group>
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
+                placeholder="PASSWORD"
                 onChange={event => {
                   passwordChangeHandler(event)
                 }}
-                onBlur={passwordBlurHandler}
                 value={passwordVal}
               />
               {passwordInputHasError && (
@@ -104,32 +94,9 @@ const Login = () => {
                 </p>
               )}
             </Form.Group>
-            <Button textColor="#262626" type="submit">
-              {loaded ? (
-                <>Login</>
-              ) : (
-                <>
-                  <Col>Login</Col>
-                </>
-              )}
-            </Button>{" "}
-            {!loaded ? (
-              <span style={{ marginLeft: "2rem" }}>
-                <ClipLoader loading={true} size={15} />
-              </span>
-            ) : (
-              <></>
-            )}
+            <Button type="submit">Login</Button>
           </Form>
         </AuthenticationCard>
-        <SpacingSmall>
-          <Button
-            textColor="#262626"
-            onClick={() => navigate("/authentication/Register")}
-          >
-            Register
-          </Button>
-        </SpacingSmall>
       </Center>
     </Layout>
   )

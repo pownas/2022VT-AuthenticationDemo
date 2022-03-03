@@ -1,32 +1,31 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react"
 
-export enum STORED_VALUES{
-    THEME = "THEME",
-    TOKEN = "STORED_VALUES.TOKEN"
+export enum STORED_VALUES {
+  TOKEN = "STORED_VALUES.TOKEN",
 }
 
-function getSavedValue(key: (STORED_VALUES | string), initialValue: any){
-    const savedValue = JSON.parse(localStorage.getItem(key) as string);
-    if(savedValue) return savedValue;
+function getSavedValue(key: STORED_VALUES | string, initialValue: any) {
+  const savedValue = JSON.parse(localStorage.getItem(key) as string)
+  if (savedValue) return savedValue
 
-    if(initialValue instanceof Function) return initialValue()
-    return initialValue;
+  if (initialValue instanceof Function) return initialValue()
+  return initialValue
 }
 
-function useLocalStorage(key: (STORED_VALUES | string), initialValue: any){
-    const [value, setValue] = useState(() => {
-        return getSavedValue(key, initialValue)
-    });
+function useLocalStorage(key: STORED_VALUES | string, initialValue: any) {
+  const [value, setValue] = useState(() => {
+    return getSavedValue(key, initialValue)
+  })
 
-    useEffect(() =>{
-        localStorage.setItem(key, JSON.stringify(value));
-    }, [value])
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value))
+  }, [value])
 
-    const remove = (key: string) => {
-        localStorage.removeItem(key);
-    }
+  const remove = (key: string) => {
+    localStorage.removeItem(key)
+  }
 
-    return{value, setValue, remove};
+  return { value, setValue, remove }
 }
 
-export default useLocalStorage;
+export default useLocalStorage

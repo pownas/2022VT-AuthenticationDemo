@@ -25,19 +25,9 @@ export const initialState: State = {
 export const AuthReducer = (state: State, action: AuthAction) => {
     switch (action.type) {
         case 'LOGIN_ACTION':
-            return {
-                ...state,
-                isAuth: true,
-                username: action.username,
-                id: action.id
-            };
+            return {...state, isAuth: true, username: action.username, id: action.id};
         case 'LOGOUT_ACTION':
-            return {
-                ...state,
-                isAuth: false,
-                username: undefined,
-                id: undefined
-            };
+            return {...state, isAuth: false, username: undefined, id: undefined };
         default:
             return state;
     }

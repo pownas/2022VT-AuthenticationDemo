@@ -2,7 +2,6 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 
 export const HeaderStyled = styled.header`
-  background-color: ${({ theme }) => theme.colors.header};
   padding: 10px;
 `
 
@@ -16,7 +15,7 @@ export const Nav = styled.nav`
   }
 `
 export const LogoLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.text};
+  color: #f4fff8;
   text-decoration: none;
 `
 
@@ -41,7 +40,7 @@ export const NavMenu = styled.div<Props>`
   justify-content: end;
   gap: 10px;
 
-  @media (min-width: ${({ theme }) => theme.responsive.md}) {
+  @media (min-width: 768px) {
     display: flex;
     text-align: left;
     width: 70vw;
@@ -50,7 +49,7 @@ export const NavMenu = styled.div<Props>`
     gap: 10px;
   }
 
-  @media (max-width: ${({ theme }) => theme.responsive.lg}) {
+  @media (max-width: 992px) {
     font-size: 35px;
     background: #E6E4DF; 
     display: flex;
@@ -70,7 +69,7 @@ export const NavMenu = styled.div<Props>`
   }
 `
 export const NavItem = styled.div`
-  @media (max-width: ${({ theme }) => theme.responsive.lg}) {
+  @media (max-width: 992px) {
     width: 80%;
     .p {
       font-weight: bold;

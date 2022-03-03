@@ -5,8 +5,8 @@ export const Container = styled.div`
   max-width: 100%;
   padding: 0 20px;
   margin: 0 auto;
-  color: ${({ theme }) => theme.colors.text};
-  @media (max-width: ${({ theme }) => theme.responsive.sm}) {
+  color: #f4fff8;
+  @media (max-width: 600px) {
     padding: 0 10px;
   }
 `
@@ -17,5 +17,5 @@ export const Page = styled.div`
   min-height: 70vh;
   padding: 20px 10px 20px 10px;
   margin: 20px 0 auto;
-  color: ${({ theme }) => theme.colors.text};
+  color: #f4fff8;
 `

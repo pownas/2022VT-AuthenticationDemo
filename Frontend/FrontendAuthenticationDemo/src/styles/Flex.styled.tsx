@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Flex = styled.div`
   display: flex;
   align-items: center;
   & > div,
-  & > ul{
+  & > ul {
     flex: 1;
   }
-  @media (max-width: ${({ theme }) => theme.responsive.sm}) {
+  @media (max-width: 600px) {
     flex-direction: column;
     text-align: center;
   }

@@ -1,15 +1,14 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BackendAuthenticationDemo.Dtos;
 
 public class LoginDto
 {
     [Required]
-    [DefaultValue("system")]
+    [MinLength(2)]
     public string UserName { get; set; } = string.Empty;
 
     [Required]
-    [DefaultValue("DemoPassword1!")]
+    [MinLength(8)]
     public string Password { get; set; } = string.Empty;
 }

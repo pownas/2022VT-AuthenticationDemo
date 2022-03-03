@@ -1,7 +1,6 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const StyledFooter = styled.footer`
-  background-color: ${({ theme }) => theme.colors.footer};
   color: #fff;
   padding: 20px 0 20px;
   ul {
@@ -13,7 +12,7 @@ export const StyledFooter = styled.footer`
   p {
     text-align: right;
   }
-  @media (max-width: ${({ theme }) => theme.responsive.sm}) {
+  @media (max-width: 600px) {
     text-align: center;
     ul {
       padding: 0;

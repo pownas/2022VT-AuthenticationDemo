@@ -16,24 +16,19 @@ public class AuthenticationController : ControllerBase
 {
     private readonly IUnitOfWork _uow;
     private readonly IConfiguration _config;
-    private readonly string secureSystemKey;
 
-    public AuthenticationController(IUnitOfWork uow, IConfiguration configuration)//, HttpContext httpContext)
+    public AuthenticationController(IUnitOfWork uow, IConfiguration configuration)
     {
         _uow = uow;
         _config = configuration;
-
-        secureSystemKey = _config.GetSection("AppSettings:SystemKey").Value;
     }
-
-
 
     [HttpPost, Route("Login")]
     public async Task<ActionResult<string>> LoginAsync(LoginDto dto)
     {
         if (ModelState.IsValid)
         {
-            var user = await _uow.ApplicationUsers.Login(dto);
+            ApplicationUser user = await _uow.ApplicationUsers.Login(dto);
             if (user.UserName == "User not found")
                 return NotFound(user.UserName);
             if (user.UserName == "Wrong password")
@@ -46,8 +41,7 @@ public class AuthenticationController : ControllerBase
         return BadRequest(dto);
     }
 
-
-
+    #region GetLoggedInUser()
     [HttpGet, Route("GetLoggedInUser")]
     [Authorize]
     public async Task<ActionResult> GetLoggedInUser()
@@ -83,8 +77,7 @@ public class AuthenticationController : ControllerBase
             return Unauthorized();
         }
     }
-
-
+    #endregion
 
     private async Task<string> CreateApiToken(ApplicationUser user)
     {
@@ -99,14 +92,16 @@ public class AuthenticationController : ControllerBase
             foreach (var role in userRoles)
                 claims.Add(new Claim(ClaimTypes.Role, role.Name));
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureSystemKey));
+        var systemSecretKey = _config.GetSection("AppSettings:SystemSecretKey").Value;
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(systemSecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
         var token = new JwtSecurityToken(
-                issuer: user.Id.ToString(),
-                claims: claims,
-                //expires: DateTime.Now.AddSeconds(15), //If a user token just shall be valid 15 sec
-                expires: DateTime.Now.AddDays(1), //If a user token shall be valid 1 day
-                signingCredentials: credentials);
+            signingCredentials: credentials, //"Header" (security algoritm) and "Signature" (signed with SystemSecretKey)
+            //"Payload" (data) below
+            issuer: user.Id.ToString(), //Issued by user id
+            claims: claims, //List of all user claims, GivenName + Roles
+            expires: DateTime.Now.AddMinutes(15) //If a user token shall be valid 15 minutes
+        );
         var jwtJsonWebToken = new JwtSecurityTokenHandler().WriteToken(token);
 
         return jwtJsonWebToken;
