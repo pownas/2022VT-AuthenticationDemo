@@ -92,7 +92,7 @@ public class AuthenticationController : ControllerBase
             foreach (var role in userRoles)
                 claims.Add(new Claim(ClaimTypes.Role, role.Name));
 
-        var systemSecretKey = _config.GetSection("AppSettings:SystemSecretKey").Value;
+        var systemSecretKey = _config.GetSection("AppSettings:SystemSecretKey").Value; //System secret key, from appsettings.json
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(systemSecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
         var token = new JwtSecurityToken(
